@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>登录页面</title>
+</head>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+<body>
+
+<input type="text" id="pin" name="pin">
+<button type="button" id="bind">绑定</button></body>
+
+<script type="text/javascript">
+	let openid = '';
+    $(function(){
+        openid = getParamUrl('openId')
+    });
+    function getParamUrl(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]); return null; //返回参数值
+    }
+
+    $("#bind").click(function (event) {
+        let pin = $("#pin").val()
+        alert("pin:" + pin + "  openId:" + openid)
+
+        $.ajax({
+            type: "GET", // 请求类型（get/post）
+            url: "http://52z9hz.natappfree.cc/reporting",
+            async: false, // 是否异步
+            data: {
+                openid : openid,
+                pin : pin
+            },
+            success: function (data) {
+                alert("请求成功")
+            },
+            error: function (errorMsg){
+                // 请求失败
+                alert("请求失败");
+            }
+        });
+
+    })
+</script>
+
+</html>
